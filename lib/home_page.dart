@@ -18,7 +18,6 @@ class _HomePageState extends State<HomePage> {
     final joke = await fetchJoke(
       category: selectedCategory,
     );
-    print(joke);
 
     setState(() {
       currentJoke = joke;
@@ -32,13 +31,37 @@ class _HomePageState extends State<HomePage> {
       body: Column(
         children: [
           CategorySelector(),
-          JokeDisplayer(
-            joke: currentJoke,
+          SizedBox(
+            height: 30,
           ),
-          ElevatedButton.icon(
+          Expanded(
+            child: JokeDisplayer(
+              joke: currentJoke,
+            ),
+          ),
+          SizedBox(
+            height: 50,
+          ),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.blue,
+              foregroundColor: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+            ),
             onPressed: getJoke,
-            icon: const Icon(Icons.refresh),
-            label: const Text('Get a Joke'),
+            child: Text(
+              'Get A New Joke',
+              style: TextStyle(
+                fontWeight: FontWeight.w700,
+                fontSize: 25,
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 60,
           ),
         ],
       ),
@@ -56,20 +79,26 @@ class CategorySelector extends StatefulWidget {
 class _CategorySelectorState extends State<CategorySelector> {
   @override
   Widget build(BuildContext context) {
-    return Wrap(
-      alignment: WrapAlignment.center,
-      spacing: 15,
-      children: categories.map((category) {
-        return ChoiceChip(
-          label: Text(category),
-          selected: selectedCategory == category,
-          onSelected: (selected) {
-            setState(() {
-              selectedCategory = category;
-            });
-          },
-        );
-      }).toList(),
+    return Container(
+      padding: EdgeInsets.all(10),
+      width: double.infinity,
+      child: Wrap(
+        alignment: WrapAlignment.center,
+        spacing: 15,
+        children: categories.map((category) {
+          return ChoiceChip(
+            label: Text(category),
+            showCheckmark: false,
+            selectedColor: Color(0xFFACD3FA),
+            selected: selectedCategory == category,
+            onSelected: (selected) {
+              setState(() {
+                selectedCategory = category;
+              });
+            },
+          );
+        }).toList(),
+      ),
     );
   }
 }
@@ -77,16 +106,25 @@ class _CategorySelectorState extends State<CategorySelector> {
 class JokeDisplayer extends StatelessWidget {
   final String joke;
 
-  const JokeDisplayer({required this.joke});
+  const JokeDisplayer({super.key, required this.joke});
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Text(
-          joke,
-          textAlign: TextAlign.center,
+    return SizedBox(
+      width: double.infinity,
+      child: Card(
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Center(
+            child: Text(
+              joke,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontWeight: FontWeight.w600,
+                fontSize: 20,
+              ),
+            ),
+          ),
         ),
       ),
     );
