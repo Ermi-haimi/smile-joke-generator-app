@@ -10,7 +10,7 @@ class FavJokeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final favoriteJokes = context.watch<FavJokeProvider>().favJokes;
     return Scaffold(
-      appBar: Appbar(),
+      appBar: Appbar(isFavPage: true),
       body: Column(
         children: [
           Expanded(

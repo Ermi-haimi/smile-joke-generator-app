@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:smile/fav_joke_screen.dart';
 
 class Appbar extends StatelessWidget implements PreferredSizeWidget {
-  const Appbar({super.key});
+  final bool isFavPage;
+
+  const Appbar({
+    this.isFavPage = false,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -10,26 +15,26 @@ class Appbar extends StatelessWidget implements PreferredSizeWidget {
       title: Text('SMILE'),
       centerTitle: true,
       backgroundColor: Colors.blue,
-      leading: IconButton(
-        onPressed: () {},
-        icon: Icon(
-          Icons.menu,
-        ),
-      ),
       actions: [
-        IconButton(
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const FavJokeScreen()),
-            );
-          },
-          icon: Icon(
-            Icons.favorite,
-            color: Colors.red,
-            size: 29,
-          ),
-        ),
+        isFavPage
+            ? SizedBox(
+                width: 0,
+              )
+            : IconButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const FavJokeScreen(),
+                    ),
+                  );
+                },
+                icon: Icon(
+                  Icons.favorite,
+                  color: Colors.red,
+                  size: 29,
+                ),
+              ),
       ],
     );
   }
