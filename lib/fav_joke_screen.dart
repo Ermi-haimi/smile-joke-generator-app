@@ -18,26 +18,33 @@ class FavJokeScreen extends StatelessWidget {
               itemCount: favoriteJokes.length,
               itemBuilder: (context, index) {
                 final item = favoriteJokes[index];
-                return Padding(
-                  padding: const EdgeInsets.all(12),
-                  child: Row(
-                    children: [
-                      Text(
-                        item,
-                        style: TextStyle(overflow: TextOverflow.clip),
-                      ),
-                      IconButton(
-                        onPressed: () {
-                          context.read<FavJokeProvider>().removeJoke(
-                            ind: index,
-                          );
-                        },
-                        icon: Icon(
-                          Icons.delete,
-                          color: Colors.red,
+                return Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(12),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          child: Text(
+                            item,
+                            softWrap: true,
+                            style: TextStyle(overflow: TextOverflow.clip),
+                          ),
                         ),
-                      ),
-                    ],
+                        IconButton(
+                          onPressed: () {
+                            context.read<FavJokeProvider>().toggleFavorite(
+                              joke: favoriteJokes[index],
+                            );
+                          },
+                          icon: Icon(
+                            Icons.delete,
+                            color: Colors.red,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 );
               },

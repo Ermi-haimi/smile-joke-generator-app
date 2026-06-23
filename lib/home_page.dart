@@ -28,6 +28,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final isFav = context.watch<FavJokeProvider>().isFavorite(currentJoke);
     return Scaffold(
       appBar: Appbar(),
       body: Column(
@@ -44,14 +45,13 @@ class _HomePageState extends State<HomePage> {
           IconButton(
             onPressed: () {
               if (currentJoke != "NO JOKE") {
-                context.read<FavJokeProvider>().addJoke(
+                context.read<FavJokeProvider>().toggleFavorite(
                   joke: currentJoke,
                 );
               }
             },
             icon: Icon(
-              // currentJoke in Fa,
-              Icons.favorite_border,
+              isFav ? Icons.favorite : Icons.favorite_border,
               color: Colors.red,
               size: 29,
             ),
