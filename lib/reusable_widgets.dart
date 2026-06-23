@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smile/fav_joke_screen.dart';
 
 class Appbar extends StatelessWidget implements PreferredSizeWidget {
   const Appbar({super.key});
@@ -15,6 +16,21 @@ class Appbar extends StatelessWidget implements PreferredSizeWidget {
           Icons.menu,
         ),
       ),
+      actions: [
+        IconButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const FavJokeScreen()),
+            );
+          },
+          icon: Icon(
+            Icons.favorite,
+            color: Colors.red,
+            size: 29,
+          ),
+        ),
+      ],
     );
   }
 

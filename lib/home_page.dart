@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'reusable_widgets.dart';
 import 'constants.dart';
 import 'joke_generator.dart';
+import 'fav_joke_provider.dart';
 
 String selectedCategory = 'Any';
 String currentJoke = 'NO JOKE';
@@ -37,6 +39,21 @@ class _HomePageState extends State<HomePage> {
           Expanded(
             child: JokeDisplayer(
               joke: currentJoke,
+            ),
+          ),
+          IconButton(
+            onPressed: () {
+              if (currentJoke != "NO JOKE") {
+                context.read<FavJokeProvider>().addJoke(
+                  joke: currentJoke,
+                );
+              }
+            },
+            icon: Icon(
+              // currentJoke in Fa,
+              Icons.favorite_border,
+              color: Colors.red,
+              size: 29,
             ),
           ),
           SizedBox(
