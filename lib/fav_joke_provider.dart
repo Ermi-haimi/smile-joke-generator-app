@@ -39,5 +39,7 @@ class FavJokeProvider extends ChangeNotifier {
     final sharedPref = await SharedPreferences.getInstance();
 
     _favJokes = sharedPref.getStringList('favoriteJokes') ?? [];
+
+    notifyListeners();
   }
 }

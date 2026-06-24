@@ -46,6 +46,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     final isFav = context.watch<FavJokeProvider>().isFavorite(currentJoke);
     return Scaffold(
+      backgroundColor: Color(0xffa9d6e5),
       appBar: Appbar(),
       body: Column(
         children: [
@@ -68,7 +69,7 @@ class _HomePageState extends State<HomePage> {
                 : null,
             icon: Icon(
               isFav ? Icons.favorite : Icons.favorite_border,
-              color: successfulLoad ? Colors.red : Colors.transparent,
+              color: successfulLoad ? Color(0xff013a63) : Colors.transparent,
               size: 29,
             ),
           ),
@@ -77,7 +78,7 @@ class _HomePageState extends State<HomePage> {
           ),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.blue,
+              backgroundColor: Color(0xff014f86),
               foregroundColor: Colors.white,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
@@ -87,7 +88,7 @@ class _HomePageState extends State<HomePage> {
             onPressed: isLoading ? null : getJoke,
             child: isLoading
                 ? CircularProgressIndicator(
-                    backgroundColor: Colors.blue,
+                    backgroundColor: Color(0xFFe9ecef),
                     color: Colors.white,
                     padding: EdgeInsets.symmetric(horizontal: 20),
                   )
@@ -96,6 +97,7 @@ class _HomePageState extends State<HomePage> {
                     style: TextStyle(
                       fontWeight: FontWeight.w700,
                       fontSize: 25,
+                      color: Colors.white,
                     ),
                   ),
           ),
@@ -128,7 +130,9 @@ class _CategorySelectorState extends State<CategorySelector> {
           return ChoiceChip(
             label: Text(category),
             showCheckmark: false,
-            selectedColor: Color(0xFFACD3FA),
+            backgroundColor: Color(0xFFFFFFFF),
+            selectedColor: Color(0xFF61a5c2),
+
             selected: selectedCategory == category,
             onSelected: (selected) {
               setState(() {
@@ -152,6 +156,8 @@ class JokeDisplayer extends StatelessWidget {
     return SizedBox(
       width: double.infinity,
       child: Card(
+        color: Color(0xFF89c2d9),
+        shadowColor: Color(0xFFe9ecef),
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: Center(
@@ -161,6 +167,7 @@ class JokeDisplayer extends StatelessWidget {
               style: TextStyle(
                 fontWeight: FontWeight.w600,
                 fontSize: 20,
+                color: Color(0xff012a4a),
               ),
             ),
           ),

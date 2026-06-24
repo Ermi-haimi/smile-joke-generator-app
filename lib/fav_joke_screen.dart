@@ -10,6 +10,7 @@ class FavJokeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final favoriteJokes = context.watch<FavJokeProvider>().favJokes;
     return Scaffold(
+      backgroundColor: Color(0xffa9d6e5),
       appBar: Appbar(isFavPage: true),
       body: Column(
         children: [
@@ -19,6 +20,7 @@ class FavJokeScreen extends StatelessWidget {
               itemBuilder: (context, index) {
                 final item = favoriteJokes[index];
                 return Card(
+                  color: Color(0xFF89c2d9),
                   child: Padding(
                     padding: const EdgeInsets.all(12),
                     child: Row(
@@ -29,7 +31,7 @@ class FavJokeScreen extends StatelessWidget {
                           child: Text(
                             item,
                             softWrap: true,
-                            style: TextStyle(overflow: TextOverflow.clip),
+                            style: TextStyle(color: Color(0xff012a4a)),
                           ),
                         ),
                         IconButton(
@@ -40,7 +42,7 @@ class FavJokeScreen extends StatelessWidget {
                           },
                           icon: Icon(
                             Icons.delete,
-                            color: Colors.red,
+                            color: Color(0xff01497c),
                           ),
                         ),
                       ],

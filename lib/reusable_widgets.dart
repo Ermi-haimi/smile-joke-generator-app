@@ -12,9 +12,16 @@ class Appbar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: Text('SMILE'),
+      title: Text(
+        'SMILE',
+        style: TextStyle(
+          color: Colors.white,
+          fontWeight: FontWeight.w600,
+          fontSize: 25,
+        ),
+      ),
       centerTitle: true,
-      backgroundColor: Colors.blue,
+      backgroundColor: Color(0xFF2a6f97),
       actions: [
         isFavPage
             ? SizedBox(
@@ -31,7 +38,7 @@ class Appbar extends StatelessWidget implements PreferredSizeWidget {
                 },
                 icon: Icon(
                   Icons.favorite,
-                  color: Colors.red,
+                  color: Color(0xFF61a5c2),
                   size: 29,
                 ),
               ),
