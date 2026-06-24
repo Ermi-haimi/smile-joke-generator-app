@@ -46,7 +46,6 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     final isFav = context.watch<FavJokeProvider>().isFavorite(currentJoke);
     return Scaffold(
-      backgroundColor: Color(0xffa9d6e5),
       appBar: Appbar(),
       body: Column(
         children: [
@@ -78,8 +77,6 @@ class _HomePageState extends State<HomePage> {
           ),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
-              backgroundColor: Color(0xff014f86),
-              foregroundColor: Colors.white,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
               ),
@@ -94,11 +91,7 @@ class _HomePageState extends State<HomePage> {
                   )
                 : Text(
                     'Get A New Joke',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w700,
-                      fontSize: 25,
-                      color: Colors.white,
-                    ),
+                    style: Theme.of(context).textTheme.labelLarge,
                   ),
           ),
           SizedBox(
@@ -128,11 +121,11 @@ class _CategorySelectorState extends State<CategorySelector> {
         spacing: 15,
         children: categories.map((category) {
           return ChoiceChip(
-            label: Text(category),
+            label: Text(
+              category,
+              style: Theme.of(context).textTheme.bodyMedium,
+            ),
             showCheckmark: false,
-            backgroundColor: Color(0xFFFFFFFF),
-            selectedColor: Color(0xFF61a5c2),
-
             selected: selectedCategory == category,
             onSelected: (selected) {
               setState(() {
@@ -156,19 +149,15 @@ class JokeDisplayer extends StatelessWidget {
     return SizedBox(
       width: double.infinity,
       child: Card(
-        color: Color(0xFF89c2d9),
-        shadowColor: Color(0xFFe9ecef),
+        color: Theme.of(context).cardTheme.color,
+        shadowColor: Theme.of(context).cardTheme.shadowColor,
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: Center(
             child: Text(
               joke,
               textAlign: TextAlign.center,
-              style: TextStyle(
-                fontWeight: FontWeight.w600,
-                fontSize: 20,
-                color: Color(0xff012a4a),
-              ),
+              style: Theme.of(context).textTheme.bodyLarge,
             ),
           ),
         ),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:smile/fav_joke_screen.dart';
+import 'package:provider/provider.dart';
+import 'theme_provider.dart';
 
 class Appbar extends StatelessWidget implements PreferredSizeWidget {
   final bool isFavPage;
@@ -14,14 +16,10 @@ class Appbar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       title: Text(
         'SMILE',
-        style: TextStyle(
-          color: Colors.white,
-          fontWeight: FontWeight.w600,
-          fontSize: 25,
-        ),
+        style: Theme.of(context).textTheme.titleLarge,
       ),
       centerTitle: true,
-      backgroundColor: Color(0xFF2a6f97),
+      backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
       actions: [
         isFavPage
             ? SizedBox(
@@ -42,6 +40,17 @@ class Appbar extends StatelessWidget implements PreferredSizeWidget {
                   size: 29,
                 ),
               ),
+        IconButton(
+          onPressed: () {
+            context.read<ThemeProvider>().toggleTheme();
+          },
+          icon: Icon(
+            context.watch<ThemeProvider>().isDarkMode
+                ? Icons.light_mode
+                : Icons.dark_mode,
+            // color: ,
+          ),
+        ),
       ],
     );
   }
