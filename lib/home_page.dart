@@ -7,6 +7,8 @@ import 'fav_joke_provider.dart';
 
 String selectedCategory = 'Any';
 String currentJoke = 'NO JOKE';
+bool isLoading = false;
+bool successfulLoad = false;
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -17,13 +19,27 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   Future<void> getJoke() async {
-    final joke = await fetchJoke(
-      category: selectedCategory,
-    );
-
     setState(() {
-      currentJoke = joke;
+      isLoading = true;
     });
+
+    try {
+      final joke = await fetchJoke(category: selectedCategory);
+
+      setState(() {
+        currentJoke = joke;
+        successfulLoad = true;
+      });
+    } catch (e) {
+      setState(() {
+        currentJoke = "Sorry Cannot Load A Joke. \n Check your network Please.";
+        successfulLoad = false;
+      });
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
+    }
   }
 
   @override
@@ -43,16 +59,16 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           IconButton(
-            onPressed: () {
-              if (currentJoke != "NO JOKE") {
-                context.read<FavJokeProvider>().toggleFavorite(
-                  joke: currentJoke,
-                );
-              }
-            },
+            onPressed: successfulLoad
+                ? () {
+                    context.read<FavJokeProvider>().toggleFavorite(
+                      joke: currentJoke,
+                    );
+                  }
+                : null,
             icon: Icon(
               isFav ? Icons.favorite : Icons.favorite_border,
-              color: Colors.red,
+              color: successfulLoad ? Colors.red : Colors.transparent,
               size: 29,
             ),
           ),
@@ -68,14 +84,20 @@ class _HomePageState extends State<HomePage> {
               ),
               padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
             ),
-            onPressed: getJoke,
-            child: Text(
-              'Get A New Joke',
-              style: TextStyle(
-                fontWeight: FontWeight.w700,
-                fontSize: 25,
-              ),
-            ),
+            onPressed: isLoading ? null : getJoke,
+            child: isLoading
+                ? CircularProgressIndicator(
+                    backgroundColor: Colors.blue,
+                    color: Colors.white,
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                  )
+                : Text(
+                    'Get A New Joke',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 25,
+                    ),
+                  ),
           ),
           SizedBox(
             height: 60,
