@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'l10n/app_localizations.dart';
+import 'language_provider.dart';
 import 'reusable_widgets.dart';
 import 'constants.dart';
 import 'joke_generator.dart';
 import 'fav_joke_provider.dart';
 
 String selectedCategory = 'Any';
-String currentJoke = 'NO JOKE';
+String currentJoke = '';
 bool isLoading = false;
 bool successfulLoad = false;
 
@@ -32,7 +34,7 @@ class _HomePageState extends State<HomePage> {
       });
     } catch (e) {
       setState(() {
-        currentJoke = "Sorry Cannot Load A Joke. \n Check your network Please.";
+        currentJoke = AppLocalizations.of(context)!.errorWhileFetching;
         successfulLoad = false;
       });
     } finally {
@@ -47,6 +49,23 @@ class _HomePageState extends State<HomePage> {
     final isFav = context.watch<FavJokeProvider>().isFavorite(currentJoke);
     return Scaffold(
       appBar: Appbar(),
+      drawer: Drawer(
+        child: ListView(
+          children: [
+            ListTile(
+              leading: const Icon(Icons.language),
+              title: Text(
+                AppLocalizations.of(context)!.lang,
+              ),
+              onTap: () {
+                showLanguageDialog(context);
+              },
+              splashColor: null,
+            ),
+          ],
+        ),
+      ),
+
       body: Column(
         children: [
           CategorySelector(),
@@ -55,7 +74,9 @@ class _HomePageState extends State<HomePage> {
           ),
           Expanded(
             child: JokeDisplayer(
-              joke: currentJoke,
+              joke: currentJoke.isEmpty
+                  ? AppLocalizations.of(context)!.noNewJoke
+                  : currentJoke,
             ),
           ),
           IconButton(
@@ -68,7 +89,7 @@ class _HomePageState extends State<HomePage> {
                 : null,
             icon: Icon(
               isFav ? Icons.favorite : Icons.favorite_border,
-              color: successfulLoad ? Color(0xff013a63) : Colors.transparent,
+              color: successfulLoad ? Color(0xff69b3f6) : Colors.transparent,
               size: 29,
             ),
           ),
@@ -90,7 +111,7 @@ class _HomePageState extends State<HomePage> {
                     padding: EdgeInsets.symmetric(horizontal: 20),
                   )
                 : Text(
-                    'Get A New Joke',
+                    AppLocalizations.of(context)!.getJoke,
                     style: Theme.of(context).textTheme.labelLarge,
                   ),
           ),
@@ -164,4 +185,40 @@ class JokeDisplayer extends StatelessWidget {
       ),
     );
   }
+}
+
+void showLanguageDialog(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (context) {
+      return AlertDialog(
+        title: Text(
+          AppLocalizations.of(context)!.lang,
+        ),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ListTile(
+              title: const Text('English'),
+              onTap: () {
+                context.read<LanguageProvider>().changeLanguage('en');
+
+                Navigator.pop(context);
+              },
+              splashColor: null,
+            ),
+            ListTile(
+              title: const Text('አማርኛ'),
+              onTap: () {
+                context.read<LanguageProvider>().changeLanguage('am');
+
+                Navigator.pop(context);
+              },
+              splashColor: null,
+            ),
+          ],
+        ),
+      );
+    },
+  );
 }

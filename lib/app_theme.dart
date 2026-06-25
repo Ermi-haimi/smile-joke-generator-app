@@ -16,8 +16,8 @@ class AppTheme {
       ),
     ),
     cardTheme: CardThemeData(
-      color: Color(0xFFadb5bd),
-      shadowColor: Color(0xFFe9ecef),
+      color: Color(0xFFe9ecef),
+      shadowColor: Color(0xffffffff),
     ),
     textTheme: TextTheme(
       bodyMedium: TextStyle(
@@ -59,7 +59,7 @@ class AppTheme {
     ),
 
     cardTheme: CardThemeData(
-      color: Color(0xff141414),
+      color: Color(0xff232323),
     ),
 
     textTheme: TextTheme(
@@ -77,7 +77,7 @@ class AppTheme {
         fontSize: 25,
       ),
       titleSmall: TextStyle(
-        color: Colors.white,
+        color: Color(0xffffffff),
       ),
       titleLarge: TextStyle(
         color: Colors.white,

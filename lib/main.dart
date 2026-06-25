@@ -3,7 +3,11 @@ import 'package:smile/app_theme.dart';
 import 'package:smile/fav_joke_provider.dart';
 import 'package:smile/home_page.dart';
 import 'package:provider/provider.dart';
+import 'package:smile/language_provider.dart';
 import 'package:smile/theme_provider.dart';
+
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'l10n/app_localizations.dart';
 
 void main() {
   runApp(
@@ -14,6 +18,9 @@ void main() {
         ),
         ChangeNotifierProvider(
           create: (_) => ThemeProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => LanguageProvider(),
         ),
       ],
       child: MyApp(),
@@ -36,7 +43,12 @@ class MyApp extends StatelessWidget {
 
       themeMode: themeProvider.themeMode,
 
-      home: const HomePage(),
+      locale: context.watch<LanguageProvider>().locale,
+
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
+
+      home: SafeArea(child: const HomePage()),
     );
   }
 }
