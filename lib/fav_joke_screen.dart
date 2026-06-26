@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smile/l10n/app_localizations.dart';
 import 'reusable_widgets.dart';
 import 'fav_joke_provider.dart';
 import 'package:provider/provider.dart';
@@ -11,48 +12,66 @@ class FavJokeScreen extends StatelessWidget {
     final favoriteJokes = context.watch<FavJokeProvider>().favJokes;
     return Scaffold(
       appBar: Appbar(isFavPage: true),
-      body: Column(
-        children: [
-          Expanded(
-            child: ListView.builder(
-              itemCount: favoriteJokes.length,
-              itemBuilder: (context, index) {
-                final item = favoriteJokes[index];
-                return Card(
-                  // color: Color(0xFF89c2d9),
-                  child: Padding(
-                    padding: const EdgeInsets.all(12),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                          child: Text(
-                            item,
-                            softWrap: true,
-                            style: Theme.of(context).textTheme.titleSmall,
-                          ),
-                        ),
-                        IconButton(
-                          onPressed: () {
-                            context.read<FavJokeProvider>().toggleFavorite(
-                              joke: favoriteJokes[index],
-                            );
-                          },
-                          icon: Icon(
-                            Icons.delete,
-                            color: Color(0xff01497c),
-                          ),
-                        ),
-                      ],
-                    ),
+      body: favoriteJokes.length == 0
+          ? Center(
+              child: Text(
+                AppLocalizations.of(context)!.noFavourite,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            )
+          : Column(
+              children: [
+                Container(
+                  margin: EdgeInsets.symmetric(vertical: 5),
+                  child: Text(
+                    AppLocalizations.of(context)!.favourites,
+                    style: TextStyle(fontSize: 15),
                   ),
-                );
-              },
+                ),
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: favoriteJokes.length,
+                    itemBuilder: (context, index) {
+                      final item = favoriteJokes[index];
+                      return Card(
+                        child: Padding(
+                          padding: const EdgeInsets.all(12),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Expanded(
+                                child: Text(item),
+                              ),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              IconButton(
+                                onPressed: () {
+                                  context
+                                      .read<FavJokeProvider>()
+                                      .toggleFavorite(
+                                        joke: favoriteJokes[index],
+                                      );
+                                },
+                                icon: Icon(
+                                  Icons.delete,
+                                  color: Color(0xff01497c),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ],
             ),
-          ),
-        ],
-      ),
     );
   }
 }

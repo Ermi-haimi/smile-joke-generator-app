@@ -133,6 +133,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Smile is a simple joke generator app that lets you browse jokes from JokeAPI,\n Share to your friends and Save your favorites, enjoy a laugh anytime.'**
   String get description;
+
+  /// No description provided for @noFavourite.
+  ///
+  /// In en, this message translates to:
+  /// **'No Favourite Jokes yet \n Check som jokes to get your favourites.'**
+  String get noFavourite;
+
+  /// No description provided for @favourites.
+  ///
+  /// In en, this message translates to:
+  /// **'Favourites'**
+  String get favourites;
 }
 
 class _AppLocalizationsDelegate

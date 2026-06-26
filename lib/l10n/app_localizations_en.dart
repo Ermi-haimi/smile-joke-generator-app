@@ -27,4 +27,11 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get description =>
       'Smile is a simple joke generator app that lets you browse jokes from JokeAPI,\n Share to your friends and Save your favorites, enjoy a laugh anytime.';
+
+  @override
+  String get noFavourite =>
+      'No Favourite Jokes yet \n Check som jokes to get your favourites.';
+
+  @override
+  String get favourites => 'Favourites';
 }
