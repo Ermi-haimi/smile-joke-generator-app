@@ -121,6 +121,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Language'**
   String get lang;
+
+  /// No description provided for @about.
+  ///
+  /// In en, this message translates to:
+  /// **'About Us'**
+  String get about;
+
+  /// No description provided for @description.
+  ///
+  /// In en, this message translates to:
+  /// **'Smile is a simple joke generator app that lets you browse jokes from JokeAPI,\n Share to your friends and Save your favorites, enjoy a laugh anytime.'**
+  String get description;
 }
 
 class _AppLocalizationsDelegate

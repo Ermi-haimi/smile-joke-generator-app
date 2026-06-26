@@ -53,6 +53,9 @@ class _HomePageState extends State<HomePage> {
       drawer: Drawer(
         child: ListView(
           children: [
+            SizedBox(
+              height: 20,
+            ),
             ListTile(
               leading: const Icon(Icons.language),
               title: Text(
@@ -62,6 +65,17 @@ class _HomePageState extends State<HomePage> {
                 showLanguageDialog(context);
               },
               splashColor: null,
+            ),
+            AboutListTile(
+              icon: Icon(Icons.info_outline),
+              applicationName: 'Smile',
+              applicationVersion: '1.0.0',
+              applicationLegalese: '© Ermias Haimanot Tsegaye',
+              aboutBoxChildren: [
+                SizedBox(height: 10),
+                Text(AppLocalizations.of(context)!.description),
+              ],
+              child: Text(AppLocalizations.of(context)!.about),
             ),
           ],
         ),

@@ -20,4 +20,11 @@ class AppLocalizationsAm extends AppLocalizations {
 
   @override
   String get lang => 'ቋንቋ';
+
+  @override
+  String get about => 'ስለ እኛ';
+
+  @override
+  String get description =>
+      'Smile ቀላል የቀልድ መተግበሪያ ሲሆን ፤ ቀልዶችን ከJokeAPI ያገኛል ፣ የወደዱትን ለወዳጅዎ በማጋራት እና በማስቀመጥ በማንኛውም ጊዜ መሳቅ ይችላሉ።';
 }

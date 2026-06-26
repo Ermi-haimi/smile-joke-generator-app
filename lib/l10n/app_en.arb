@@ -2,5 +2,7 @@
   "getJoke": "Get A New Joke",
   "noNewJoke": "No New Joke",
   "errorWhileFetching": "Sorry Cannot Load A Joke. \n Check your network Please.",
-  "lang": "Language"
+  "lang": "Language",
+  "about": "About Us",
+  "description": "Smile is a simple joke generator app that lets you browse jokes from JokeAPI,\n Share to your friends and Save your favorites, enjoy a laugh anytime."
 }
