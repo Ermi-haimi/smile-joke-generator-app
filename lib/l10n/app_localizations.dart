@@ -101,7 +101,7 @@ abstract class AppLocalizations {
   /// No description provided for @getJoke.
   ///
   /// In en, this message translates to:
-  /// **'Get Joke'**
+  /// **'Get A New Joke'**
   String get getJoke;
 
   /// No description provided for @noNewJoke.

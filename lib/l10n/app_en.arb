@@ -1,5 +1,5 @@
 {
-  "getJoke": "Get Joke",
+  "getJoke": "Get A New Joke",
   "noNewJoke": "No New Joke",
   "errorWhileFetching": "Sorry Cannot Load A Joke. \n Check your network Please.",
   "lang": "Language"

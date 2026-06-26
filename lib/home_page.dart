@@ -6,6 +6,7 @@ import 'reusable_widgets.dart';
 import 'constants.dart';
 import 'joke_generator.dart';
 import 'fav_joke_provider.dart';
+import 'package:share_plus/share_plus.dart';
 
 String selectedCategory = 'Any';
 String currentJoke = '';
@@ -72,27 +73,47 @@ class _HomePageState extends State<HomePage> {
           SizedBox(
             height: 30,
           ),
-          Expanded(
-            child: JokeDisplayer(
-              joke: currentJoke.isEmpty
-                  ? AppLocalizations.of(context)!.noNewJoke
-                  : currentJoke,
-            ),
+          JokeDisplayer(
+            joke: currentJoke.isEmpty
+                ? AppLocalizations.of(context)!.noNewJoke
+                : currentJoke,
           ),
-          IconButton(
-            onPressed: successfulLoad
-                ? () {
-                    context.read<FavJokeProvider>().toggleFavorite(
-                      joke: currentJoke,
-                    );
-                  }
-                : null,
-            icon: Icon(
-              isFav ? Icons.favorite : Icons.favorite_border,
-              color: successfulLoad ? Color(0xff69b3f6) : Colors.transparent,
-              size: 29,
-            ),
-          ),
+
+          successfulLoad
+              ? Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  // mainAxisSize: MainAxisSize.max,
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        SharePlus.instance.share(
+                          ShareParams(text: currentJoke),
+                        );
+                      },
+                      icon: Icon(
+                        Icons.share,
+                        color: Color(0xff69b3f6),
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: successfulLoad
+                          ? () {
+                              context.read<FavJokeProvider>().toggleFavorite(
+                                joke: currentJoke,
+                              );
+                            }
+                          : null,
+                      icon: Icon(
+                        isFav ? Icons.favorite : Icons.favorite_border,
+                        color: Color(0xff69b3f6),
+                        size: 29,
+                      ),
+                    ),
+                  ],
+                )
+              : SizedBox(
+                  height: 5,
+                ),
           SizedBox(
             height: 50,
           ),
@@ -167,11 +188,11 @@ class JokeDisplayer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: double.infinity,
+    return Expanded(
       child: Card(
         color: Theme.of(context).cardTheme.color,
         shadowColor: Theme.of(context).cardTheme.shadowColor,
+
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: Center(

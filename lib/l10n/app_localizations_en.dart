@@ -9,7 +9,7 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get getJoke => 'Get Joke';
+  String get getJoke => 'Get A New Joke';
 
   @override
   String get noNewJoke => 'No New Joke';
