@@ -3,6 +3,7 @@ import 'package:smile/l10n/app_localizations.dart';
 import 'reusable_widgets.dart';
 import 'fav_joke_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:share_plus/share_plus.dart';
 
 class FavJokeScreen extends StatelessWidget {
   const FavJokeScreen({super.key});
@@ -12,7 +13,7 @@ class FavJokeScreen extends StatelessWidget {
     final favoriteJokes = context.watch<FavJokeProvider>().favJokes;
     return Scaffold(
       appBar: Appbar(isFavPage: true),
-      body: favoriteJokes.length == 0
+      body: favoriteJokes.isEmpty
           ? Center(
               child: Text(
                 AppLocalizations.of(context)!.noFavourite,
@@ -39,7 +40,7 @@ class FavJokeScreen extends StatelessWidget {
                       final item = favoriteJokes[index];
                       return Card(
                         child: Padding(
-                          padding: const EdgeInsets.all(12),
+                          padding: EdgeInsets.all(12),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -49,6 +50,17 @@ class FavJokeScreen extends StatelessWidget {
                               ),
                               SizedBox(
                                 width: 5,
+                              ),
+                              IconButton(
+                                onPressed: () {
+                                  SharePlus.instance.share(
+                                    ShareParams(text: favoriteJokes[index]),
+                                  );
+                                },
+                                icon: Icon(
+                                  Icons.share,
+                                  color: Color(0xff01497c),
+                                ),
                               ),
                               IconButton(
                                 onPressed: () {
