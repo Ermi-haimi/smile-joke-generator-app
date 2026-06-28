@@ -255,10 +255,26 @@ class JokeDisplayer extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: Center(
-            child: Text(
-              joke,
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.bodyLarge,
+            child: AnimatedSwitcher(
+              duration: Duration(seconds: 1),
+              transitionBuilder: (child, animation) {
+                return FadeTransition(
+                  opacity: animation,
+                  child: SlideTransition(
+                    position: Tween<Offset>(
+                      begin: Offset(0, 0.05),
+                      end: Offset.zero,
+                    ).animate(animation),
+                    child: child,
+                  ),
+                );
+              },
+              child: Text(
+                joke,
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.bodyLarge,
+                key: ValueKey(joke),
+              ),
             ),
           ),
         ),
