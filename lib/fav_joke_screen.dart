@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:smile/l10n/app_localizations.dart';
 import 'reusable_widgets.dart';
 import 'fav_joke_provider.dart';
@@ -39,48 +40,88 @@ class FavJokeScreen extends StatelessWidget {
                     itemBuilder: (context, index) {
                       final item = favoriteJokes[index];
                       return Card(
-                        child: Padding(
-                          padding: EdgeInsets.all(12),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Expanded(
-                                child: Text(item),
-                              ),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              IconButton(
+                        child: Stack(
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  padding: EdgeInsets.only(
+                                    top: 20,
+                                    right: 40,
+                                    left: 10,
+                                  ),
+                                  child: Text(
+                                    item,
+                                    style: TextStyle(),
+                                    textAlign: TextAlign.start,
+                                  ),
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    IconButton(
+                                      onPressed: () {
+                                        SharePlus.instance.share(
+                                          ShareParams(
+                                            text: favoriteJokes[index],
+                                          ),
+                                        );
+                                      },
+                                      icon: Icon(
+                                        Icons.share,
+                                        color: Color(0xff69b3f6),
+                                      ),
+                                    ),
+                                    IconButton(
+                                      onPressed: () {
+                                        context
+                                            .read<FavJokeProvider>()
+                                            .toggleFavorite(
+                                              joke: favoriteJokes[index],
+                                            );
+                                      },
+                                      icon: Icon(
+                                        Icons.delete,
+                                        color: Color(0xff69b3f6),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            Positioned(
+                              right: 1,
+                              top: 1,
+                              child: IconButton(
+                                icon: Icon(
+                                  Icons.copy,
+                                  color: Color(0xff69b3f6),
+                                ),
                                 onPressed: () {
-                                  SharePlus.instance.share(
-                                    ShareParams(text: favoriteJokes[index]),
+                                  Clipboard.setData(
+                                    ClipboardData(text: item),
+                                  );
+
+                                  ScaffoldMessenger.of(
+                                    context,
+                                  ).showSnackBar(
+                                    SnackBar(
+                                      content: Text('Joke copied!'),
+                                    ),
                                   );
                                 },
-                                icon: Icon(
-                                  Icons.share,
-                                  color: Color(0xff01497c),
-                                ),
                               ),
-                              IconButton(
-                                onPressed: () {
-                                  context
-                                      .read<FavJokeProvider>()
-                                      .toggleFavorite(
-                                        joke: favoriteJokes[index],
-                                      );
-                                },
-                                icon: Icon(
-                                  Icons.delete,
-                                  color: Color(0xff01497c),
-                                ),
-                              ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       );
                     },
                   ),
+                ),
+
+                SizedBox(
+                  height: 15,
                 ),
               ],
             ),

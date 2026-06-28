@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'l10n/app_localizations.dart';
 import 'language_provider.dart';
@@ -38,9 +39,7 @@ class _HomePageState extends State<HomePage> {
         currentJoke = joke;
         successfulLoad = true;
       });
-    } catch (e, stackTrace) {
-      print(e);
-      print(stackTrace);
+    } catch (e) {
       setState(() {
         currentJoke = AppLocalizations.of(context)!.errorWhileFetching;
         successfulLoad = false;
@@ -98,6 +97,7 @@ class _HomePageState extends State<HomePage> {
             joke: currentJoke.isEmpty
                 ? AppLocalizations.of(context)!.noNewJoke
                 : currentJoke,
+            status: successfulLoad,
           ),
 
           successfulLoad
@@ -242,8 +242,9 @@ class _CategorySelectorState extends State<CategorySelector> {
 
 class JokeDisplayer extends StatelessWidget {
   final String joke;
+  final bool status;
 
-  const JokeDisplayer({super.key, required this.joke});
+  const JokeDisplayer({super.key, required this.joke, required this.status});
 
   @override
   Widget build(BuildContext context) {
@@ -252,31 +253,54 @@ class JokeDisplayer extends StatelessWidget {
         color: Theme.of(context).cardTheme.color,
         shadowColor: Theme.of(context).cardTheme.shadowColor,
 
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Center(
-            child: AnimatedSwitcher(
-              duration: Duration(seconds: 1),
-              transitionBuilder: (child, animation) {
-                return FadeTransition(
-                  opacity: animation,
-                  child: SlideTransition(
-                    position: Tween<Offset>(
-                      begin: Offset(0, 0.05),
-                      end: Offset.zero,
-                    ).animate(animation),
-                    child: child,
+        child: Stack(
+          children: [
+            Padding(
+              padding: EdgeInsets.all(16),
+              child: Center(
+                child: AnimatedSwitcher(
+                  duration: Duration(seconds: 1),
+                  transitionBuilder: (child, animation) {
+                    return FadeTransition(
+                      opacity: animation,
+                      child: SlideTransition(
+                        position: Tween<Offset>(
+                          begin: Offset(0, 0.05),
+                          end: Offset.zero,
+                        ).animate(animation),
+                        child: child,
+                      ),
+                    );
+                  },
+                  child: Text(
+                    joke,
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.bodyLarge,
+                    key: ValueKey(joke),
                   ),
-                );
-              },
-              child: Text(
-                joke,
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.bodyLarge,
-                key: ValueKey(joke),
+                ),
               ),
             ),
-          ),
+            Positioned(
+              right: 5,
+              child: IconButton(
+                icon: Icon(Icons.copy),
+                onPressed: status
+                    ? () {
+                        Clipboard.setData(
+                          ClipboardData(text: joke),
+                        );
+
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text('Joke copied!'),
+                          ),
+                        );
+                      }
+                    : null,
+              ),
+            ),
+          ],
         ),
       ),
     );
