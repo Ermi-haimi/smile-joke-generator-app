@@ -7,6 +7,7 @@ import 'constants.dart';
 import 'joke_generator.dart';
 import 'fav_joke_provider.dart';
 import 'package:share_plus/share_plus.dart';
+import 'recent_jokes.dart';
 
 String selectedCategory = 'Any';
 String currentJoke = '';
@@ -21,6 +22,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  RecentJokes recents = RecentJokes();
+
   Future<void> getJoke() async {
     setState(() {
       isLoading = true;
@@ -30,10 +33,14 @@ class _HomePageState extends State<HomePage> {
       final joke = await fetchJoke(category: selectedCategory);
 
       setState(() {
+        recents.addJoke(joke: joke);
+        // recents.resetIndex();
         currentJoke = joke;
         successfulLoad = true;
       });
-    } catch (e) {
+    } catch (e, stackTrace) {
+      print(e);
+      print(stackTrace);
       setState(() {
         currentJoke = AppLocalizations.of(context)!.errorWhileFetching;
         successfulLoad = false;
@@ -57,7 +64,7 @@ class _HomePageState extends State<HomePage> {
               height: 20,
             ),
             ListTile(
-              leading: const Icon(Icons.language),
+              leading: Icon(Icons.language),
               title: Text(
                 AppLocalizations.of(context)!.lang,
               ),
@@ -94,42 +101,80 @@ class _HomePageState extends State<HomePage> {
           ),
 
           successfulLoad
-              ? Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  // mainAxisSize: MainAxisSize.max,
+              ? Column(
                   children: [
-                    IconButton(
-                      onPressed: () {
-                        SharePlus.instance.share(
-                          ShareParams(text: currentJoke),
-                        );
-                      },
-                      icon: Icon(
-                        Icons.share,
-                        color: Color(0xff69b3f6),
-                      ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        IconButton(
+                          onPressed: recents.hasPrev()
+                              ? () {
+                                  setState(() {
+                                    currentJoke = recents.getPrevJoke();
+                                  });
+                                }
+                              : null,
+                          icon: Icon(
+                            Icons.arrow_back_ios_rounded,
+                            size: 30,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        IconButton(
+                          onPressed: recents.hasNext()
+                              ? () {
+                                  setState(() {
+                                    currentJoke = recents.getNextJoke();
+                                  });
+                                }
+                              : null,
+                          icon: Icon(
+                            Icons.arrow_forward_ios_rounded,
+                            size: 30,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ],
                     ),
-                    IconButton(
-                      onPressed: successfulLoad
-                          ? () {
-                              context.read<FavJokeProvider>().toggleFavorite(
-                                joke: currentJoke,
-                              );
-                            }
-                          : null,
-                      icon: Icon(
-                        isFav ? Icons.favorite : Icons.favorite_border,
-                        color: Color(0xff69b3f6),
-                        size: 29,
-                      ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        IconButton(
+                          onPressed: () {
+                            SharePlus.instance.share(
+                              ShareParams(text: currentJoke),
+                            );
+                          },
+                          icon: Icon(
+                            Icons.share,
+                            color: Color(0xff69b3f6),
+                          ),
+                        ),
+                        IconButton(
+                          onPressed: successfulLoad
+                              ? () {
+                                  context
+                                      .read<FavJokeProvider>()
+                                      .toggleFavorite(
+                                        joke: currentJoke,
+                                      );
+                                }
+                              : null,
+                          icon: Icon(
+                            isFav ? Icons.favorite : Icons.favorite_border,
+                            color: Color(0xff69b3f6),
+                            size: 29,
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 )
               : SizedBox(
-                  height: 5,
+                  height: 25,
                 ),
           SizedBox(
-            height: 50,
+            height: 15,
           ),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
@@ -234,7 +279,7 @@ void showLanguageDialog(BuildContext context) {
           mainAxisSize: MainAxisSize.min,
           children: [
             ListTile(
-              title: const Text('English'),
+              title: Text('English'),
               onTap: () {
                 context.read<LanguageProvider>().changeLanguage('en');
 
@@ -243,7 +288,7 @@ void showLanguageDialog(BuildContext context) {
               splashColor: null,
             ),
             ListTile(
-              title: const Text('አማርኛ'),
+              title: Text('አማርኛ'),
               onTap: () {
                 context.read<LanguageProvider>().changeLanguage('am');
 
