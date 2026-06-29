@@ -30,8 +30,26 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get noFavourite =>
-      'No Favourite Jokes yet \n Check som jokes to get your favourites.';
+      'No Favourite Jokes yet \n Check some jokes to get your favourites.';
 
   @override
   String get favourites => 'Favourites';
+
+  @override
+  String get stats => 'Statistics';
+
+  @override
+  String get allViewed => 'Total Viewed Jokes';
+
+  @override
+  String get favJokesNum => 'Liked Jokes';
+
+  @override
+  String get sharedJokesNum => 'Shared Jokes';
+
+  @override
+  String get copiedJokesNum => 'Copied Jokes';
+
+  @override
+  String get categoryView => 'Views By Category';
 }

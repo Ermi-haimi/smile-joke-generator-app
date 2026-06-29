@@ -5,6 +5,12 @@
   "lang": "Language",
   "about": "About Us",
   "description": "Smile is a simple joke generator app that lets you browse jokes from JokeAPI,\n Share to your friends and Save your favorites, enjoy a laugh anytime.",
-  "noFavourite": "No Favourite Jokes yet \n Check som jokes to get your favourites.",
-  "favourites": "Favourites"
+  "noFavourite": "No Favourite Jokes yet \n Check some jokes to get your favourites.",
+  "favourites": "Favourites",
+  "stats": "Statistics",
+  "allViewed": "Total Viewed Jokes",
+  "favJokesNum": "Liked Jokes",
+  "sharedJokesNum": "Shared Jokes",
+  "copiedJokesNum": "Copied Jokes",
+  "categoryView": "Views By Category"
 }

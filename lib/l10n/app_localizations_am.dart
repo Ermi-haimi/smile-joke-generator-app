@@ -16,7 +16,7 @@ class AppLocalizationsAm extends AppLocalizations {
 
   @override
   String get errorWhileFetching =>
-      'ይቅርታ አዲስ ቀልድ ማግኘት አቻልንም። \n ኔትዎርክዎን ያስተካክሉ።';
+      'ይቅርታ አዲስ ቀልድ ማግኘት አልቻልንም። \n ኔትዎርክዎን ያስተካክሉ።';
 
   @override
   String get lang => 'ቋንቋ';
@@ -34,4 +34,22 @@ class AppLocalizationsAm extends AppLocalizations {
 
   @override
   String get favourites => 'የተወደዱ';
+
+  @override
+  String get stats => 'ስታቲስቲክስ';
+
+  @override
+  String get allViewed => 'ጠቅላላ የታዩ ቀልዶች';
+
+  @override
+  String get favJokesNum => 'የተወደዱ ቀልዶች';
+
+  @override
+  String get sharedJokesNum => 'የተጋሩ ቀልዶች';
+
+  @override
+  String get copiedJokesNum => 'የተቀዱ ቀልዶች';
+
+  @override
+  String get categoryView => 'በምድብ የታዩ';
 }

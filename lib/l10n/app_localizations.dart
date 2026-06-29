@@ -137,7 +137,7 @@ abstract class AppLocalizations {
   /// No description provided for @noFavourite.
   ///
   /// In en, this message translates to:
-  /// **'No Favourite Jokes yet \n Check som jokes to get your favourites.'**
+  /// **'No Favourite Jokes yet \n Check some jokes to get your favourites.'**
   String get noFavourite;
 
   /// No description provided for @favourites.
@@ -145,6 +145,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Favourites'**
   String get favourites;
+
+  /// No description provided for @stats.
+  ///
+  /// In en, this message translates to:
+  /// **'Statistics'**
+  String get stats;
+
+  /// No description provided for @allViewed.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Viewed Jokes'**
+  String get allViewed;
+
+  /// No description provided for @favJokesNum.
+  ///
+  /// In en, this message translates to:
+  /// **'Liked Jokes'**
+  String get favJokesNum;
+
+  /// No description provided for @sharedJokesNum.
+  ///
+  /// In en, this message translates to:
+  /// **'Shared Jokes'**
+  String get sharedJokesNum;
+
+  /// No description provided for @copiedJokesNum.
+  ///
+  /// In en, this message translates to:
+  /// **'Copied Jokes'**
+  String get copiedJokesNum;
+
+  /// No description provided for @categoryView.
+  ///
+  /// In en, this message translates to:
+  /// **'Views By Category'**
+  String get categoryView;
 }
 
 class _AppLocalizationsDelegate

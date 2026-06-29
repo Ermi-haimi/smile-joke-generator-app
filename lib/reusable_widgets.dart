@@ -30,7 +30,7 @@ class Appbar extends StatelessWidget implements PreferredSizeWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const FavJokeScreen(),
+                      builder: (context) => FavJokeScreen(),
                     ),
                   );
                 },
@@ -48,7 +48,6 @@ class Appbar extends StatelessWidget implements PreferredSizeWidget {
             context.watch<ThemeProvider>().isDarkMode
                 ? Icons.light_mode
                 : Icons.dark_mode,
-            // color: ,
           ),
         ),
       ],

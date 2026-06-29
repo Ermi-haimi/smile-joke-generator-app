@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:smile/statistics_screen.dart';
 import 'l10n/app_localizations.dart';
 import 'language_provider.dart';
 import 'reusable_widgets.dart';
@@ -9,6 +10,7 @@ import 'joke_generator.dart';
 import 'fav_joke_provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'recent_jokes.dart';
+import 'statistics_provider.dart';
 
 String selectedCategory = 'Any';
 String currentJoke = '';
@@ -32,10 +34,10 @@ class _HomePageState extends State<HomePage> {
 
     try {
       final joke = await fetchJoke(category: selectedCategory);
+      context.read<StatisticsProvider>().jokeViewed(category: selectedCategory);
 
       setState(() {
         recents.addJoke(joke: joke);
-        // recents.resetIndex();
         currentJoke = joke;
         successfulLoad = true;
       });
@@ -61,6 +63,21 @@ class _HomePageState extends State<HomePage> {
           children: [
             SizedBox(
               height: 20,
+            ),
+            ListTile(
+              leading: Icon(Icons.auto_graph),
+              title: Text(
+                AppLocalizations.of(context)!.stats,
+              ),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => StatisticsScreen(),
+                  ),
+                );
+              },
             ),
             ListTile(
               leading: Icon(Icons.language),
@@ -296,6 +313,7 @@ class JokeDisplayer extends StatelessWidget {
                             content: Text('Joke copied!'),
                           ),
                         );
+                        context.read<StatisticsProvider>().jokeCopied();
                       }
                     : null,
               ),
