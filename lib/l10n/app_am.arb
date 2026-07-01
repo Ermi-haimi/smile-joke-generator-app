@@ -6,11 +6,5 @@
   "about": "ስለ እኛ",
   "description": "Smile ቀላል የቀልድ መተግበሪያ ሲሆን ፤ ቀልዶችን ከJokeAPI ያገኛል ፣ የወደዱትን ለወዳጅዎ በማጋራት እና በማስቀመጥ በማንኛውም ጊዜ መሳቅ ይችላሉ።",
   "noFavourite": "ምንም የወደዷቸው ቀልዶች የሉዎትም \n የሚወዱትን ቀልዶች ለማግኘት ቀልዶችን ይመልከቱ።",
-  "favourites": "የተወደዱ",
-  "copiedJokesNum": "የተቀዱ ቀልዶች",
-  "favJokesNum": "የተወደዱ ቀልዶች",
-  "allViewed": "ጠቅላላ የታዩ ቀልዶች",
-  "sharedJokesNum": "የተጋሩ ቀልዶች",
-  "stats": "ስታቲስቲክስ",
-  "categoryView": "በምድብ የታዩ"
+  "favourites": "የተወደዱ"
 }

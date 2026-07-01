@@ -4,7 +4,6 @@ import 'package:smile/fav_joke_provider.dart';
 import 'package:smile/home_page.dart';
 import 'package:provider/provider.dart';
 import 'package:smile/language_provider.dart';
-import 'package:smile/statistics_provider.dart';
 import 'package:smile/theme_provider.dart';
 
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -22,9 +21,6 @@ void main() {
         ),
         ChangeNotifierProvider(
           create: (_) => LanguageProvider(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => StatisticsProvider(),
         ),
       ],
       child: MyApp(),
